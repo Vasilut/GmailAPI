@@ -5,6 +5,7 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace GmailAPI
 {
     public class GmailServiceBuilder
     {
+        private const string _importantLabel = "IMPORTANT";
         static string[] Scopes = { GmailService.Scope.GmailReadonly };
         static string ApplicationName = "LucianMockProduct";
         GmailService _service = null;
@@ -53,6 +55,53 @@ namespace GmailAPI
             // List labels.
             IList<Label> labels = request.Execute().Labels;
             return labels;
+        }
+
+        public List<Message> ListMessages(String userId, String query)
+        {
+            List<Message> result = new List<Message>();
+            UsersResource.MessagesResource.ListRequest request = _service.Users.Messages.List(userId);
+            request.Q = query;
+
+            do
+            {
+                try
+                {
+                    ListMessagesResponse response = request.Execute();
+                    result.AddRange(response.Messages);
+                    request.PageToken = response.NextPageToken;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("An error occurred: " + e.Message);
+                }
+            } while (!String.IsNullOrEmpty(request.PageToken));
+
+            return result;
+        }
+
+        public Message GetMessage(String userId, String messageId)
+        {
+            try
+            {
+                return _service.Users.Messages.Get(userId, messageId).Execute();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("An error occurred: " + e.Message);
+            }
+
+            return null;
+        }
+
+        public IList<string> GetLabelsForMessage(Message msg)
+        {
+            return msg.LabelIds;
+        }
+
+        public bool MessageHasImportantLabel(Message msg)
+        {
+            return msg.LabelIds.Contains(_importantLabel);
         }
     }
 }

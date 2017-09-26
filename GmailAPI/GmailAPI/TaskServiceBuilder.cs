@@ -57,9 +57,9 @@ namespace GmailAPI
             return taskLists;
         }
 
-        public IList<Google.Apis.Tasks.v1.Data.Task> GetTasks(string taskList)
+        public IList<Google.Apis.Tasks.v1.Data.Task> GetTasks(string taskId)
         {
-            Tasks tasks = _service.Tasks.List(taskList).Execute();
+            Tasks tasks = _service.Tasks.List(taskId).Execute();
             return tasks.Items;
         }
     }

@@ -22,7 +22,8 @@ namespace GmailAPI
 
             //ListLabels();
             //ListContacts();
-            ListTasks();
+            //ListTasks();
+            ListMessages();
 
             Console.WriteLine("Press any key to continue..");
             Console.ReadLine();
@@ -65,6 +66,7 @@ namespace GmailAPI
                 {
                     
                     Console.WriteLine("{0} ({1})", taskList.Title, taskList.Id);
+                    var tsk = taskServiceBuilder.GetTasks(taskList.Id);
                 }
             }
             else
@@ -72,6 +74,20 @@ namespace GmailAPI
                 Console.WriteLine("No task lists found.");
             }
             Console.Read();
+        }
+
+        static void ListMessages()
+        {
+            GmailServiceBuilder gmailServiceBuilder = new GmailServiceBuilder();
+            var listOfMessages = gmailServiceBuilder.ListMessages("me","is:unread");
+
+            foreach (Message item in listOfMessages)
+            {
+                var message = gmailServiceBuilder.GetMessage("me", item.Id);
+                var listOfLabels = gmailServiceBuilder.GetLabelsForMessage(message);
+                bool isImportant = gmailServiceBuilder.MessageHasImportantLabel(message);
+                var x = 2;
+            }
         }
     }
 }
