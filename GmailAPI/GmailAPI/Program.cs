@@ -23,7 +23,8 @@ namespace GmailAPI
             //ListLabels();
             //ListContacts();
             //ListTasks();
-            ListMessages();
+            //ListMessages();
+            ListMessagesBetweenIntervals();
 
             Console.WriteLine("Press any key to continue..");
             Console.ReadLine();
@@ -80,6 +81,21 @@ namespace GmailAPI
         {
             GmailServiceBuilder gmailServiceBuilder = new GmailServiceBuilder();
             var listOfMessages = gmailServiceBuilder.ListMessages("me","is:unread");
+
+            foreach (Message item in listOfMessages)
+            {
+                var message = gmailServiceBuilder.GetMessage("me", item.Id);
+                var listOfLabels = gmailServiceBuilder.GetLabelsForMessage(message);
+                bool isImportant = gmailServiceBuilder.MessageHasImportantLabel(message);
+                var x = 2;
+            }
+        }
+
+        static void ListMessagesBetweenIntervals()
+        {
+            //https://support.google.com/mail/answer/7190?hl=en
+            GmailServiceBuilder gmailServiceBuilder = new GmailServiceBuilder();
+            var listOfMessages = gmailServiceBuilder.ListMessages("me", "is:unread after:2017/09/16 before:2017/09/25");
 
             foreach (Message item in listOfMessages)
             {
