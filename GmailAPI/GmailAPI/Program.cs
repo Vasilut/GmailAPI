@@ -69,7 +69,7 @@ namespace GmailAPI
         static void ListMessages()
         {
             GmailServiceBuilder gmailServiceBuilder = new GmailServiceBuilder();
-            var listOfMessages = gmailServiceBuilder.ListMessages("me", "is:read after:2018/01/01");
+            var listOfMessages = gmailServiceBuilder.ListMessages("me", "is:read after:2018/01/01 before:2018/02/07"); //interval query
 
             foreach (Message item in listOfMessages)
             {
