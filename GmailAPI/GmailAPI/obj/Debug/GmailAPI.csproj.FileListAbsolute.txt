@@ -53,4 +53,5 @@ C:\Users\Administrator\Source\Repos\GmailAPI\GmailAPI\GmailAPI\bin\Debug\Google.
 C:\Users\Administrator\Source\Repos\GmailAPI\GmailAPI\GmailAPI\bin\Debug\Google.Apis.Gmail.v1.xml
 C:\Users\Administrator\Source\Repos\GmailAPI\GmailAPI\GmailAPI\bin\Debug\Google.Apis.Tasks.v1.xml
 C:\Users\Administrator\Source\Repos\GmailAPI\GmailAPI\GmailAPI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Administrator\Source\Repos\GmailAPI\GmailAPI\GmailAPI\obj\Debug\GmailAPI.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Source\Repos\GmailAPI\GmailAPI\GmailAPI\obj\Debug\GmailAPI.csprojResolveAssemblyReference.cache

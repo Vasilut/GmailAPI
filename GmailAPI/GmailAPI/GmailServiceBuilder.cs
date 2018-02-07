@@ -60,9 +60,9 @@ namespace GmailAPI
         public List<Message> ListMessages(String userId, String query)
         {
             List<Message> result = new List<Message>();
+            
             UsersResource.MessagesResource.ListRequest request = _service.Users.Messages.List(userId);
             request.Q = query;
-
             do
             {
                 try
@@ -94,9 +94,36 @@ namespace GmailAPI
             return null;
         }
 
+        public Message GetMinimalMessage(String userId, string messageId)
+        {
+            try
+            {
+                var req = _service.Users.Messages.Get(userId, messageId);
+                req.Format = UsersResource.MessagesResource.GetRequest.FormatEnum.Metadata;
+                req.Fields = "id,payload/headers,threadId";
+                var response = req.Execute();
+                return response;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("An error occurred: " + e.Message);
+            }
+
+            return null;
+        }
+
         public IList<string> GetLabelsForMessage(Message msg)
         {
             return msg.LabelIds;
+        }
+
+        public IList<Label> GetLabelsForMessage(string Id)
+        {
+           var request =  _service.Users.Labels.List(Id);
+            List<Label> labelList = new List<Label>();
+            ListLabelsResponse response = request.Execute();
+            labelList.AddRange(response.Labels);
+            return labelList;
         }
 
         public bool MessageHasImportantLabel(Message msg)

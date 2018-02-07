@@ -1,15 +1,5 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Gmail.v1;
-using Google.Apis.Gmail.v1.Data;
-using Google.Apis.Services;
-using Google.Apis.Util.Store;
+﻿using Google.Apis.Gmail.v1.Data;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GmailAPI
 {
@@ -19,13 +9,12 @@ namespace GmailAPI
         static void Main(string[] args)
         {
 
-
             //ListLabels();
             //ListContacts();
             //ListTasks();
-            //ListMessages();
-            ListMessagesBetweenIntervals();
-
+            ListMessages();
+            //ListMessagesBetweenIntervals();
+            
             Console.WriteLine("Press any key to continue..");
             Console.ReadLine();
         }
@@ -80,14 +69,15 @@ namespace GmailAPI
         static void ListMessages()
         {
             GmailServiceBuilder gmailServiceBuilder = new GmailServiceBuilder();
-            var listOfMessages = gmailServiceBuilder.ListMessages("me","is:unread");
+            var listOfMessages = gmailServiceBuilder.ListMessages("me", "is:read after:2018/01/01");
 
             foreach (Message item in listOfMessages)
             {
-                var message = gmailServiceBuilder.GetMessage("me", item.Id);
-                var listOfLabels = gmailServiceBuilder.GetLabelsForMessage(message);
-                bool isImportant = gmailServiceBuilder.MessageHasImportantLabel(message);
-                var x = 2;
+                //var message = gmailServiceBuilder.GetMessage("me", item.Id);
+                var messageSecond = gmailServiceBuilder.GetMinimalMessage("me", item.Id);
+                //var listOfLabels = gmailServiceBuilder.GetLabelsForMessage("lucian.vasilut10@gmail.com");
+                //bool isImportant = gmailServiceBuilder.MessageHasImportantLabel(message);
+                var x = 2; 
             }
         }
 
