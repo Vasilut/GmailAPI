@@ -59,7 +59,10 @@ namespace GmailAPI
 
         public IList<Google.Apis.Tasks.v1.Data.Task> GetTasks(string taskId)
         {
-            Tasks tasks = _service.Tasks.List(taskId).Execute();
+            var taskRequest = _service.Tasks.List(taskId);
+            //taskRequest.DueMin = "29/09/2017";
+            //taskRequest.DueMax = "30/10/2017";
+            Tasks tasks = taskRequest.Execute();
             return tasks.Items;
         }
     }

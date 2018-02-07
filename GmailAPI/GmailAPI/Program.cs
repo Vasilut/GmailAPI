@@ -11,8 +11,8 @@ namespace GmailAPI
 
             //ListLabels();
             //ListContacts();
-            //ListTasks();
-            ListMessages();
+            ListTasks();
+            //ListMessages();
             //ListMessagesBetweenIntervals();
             
             Console.WriteLine("Press any key to continue..");
