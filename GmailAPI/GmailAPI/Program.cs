@@ -57,6 +57,7 @@ namespace GmailAPI
                     
                     Console.WriteLine("{0} ({1})", taskList.Title, taskList.Id);
                     var tsk = taskServiceBuilder.GetTasks(taskList.Id);
+                    var task = taskServiceBuilder.GetSpecificTask(tsk[0].Id, taskList.Id);
                 }
             }
             else
